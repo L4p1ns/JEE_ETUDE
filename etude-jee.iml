@@ -20,5 +20,13 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.35" level="application_server_libraries" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.38-bin" level="project" />
+  </component>
+  <component name="sonarModuleSettings">
+    <option name="alternativeWorkingDirPath" value="" />
+    <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
+    <option name="serverName" value="&lt;PROJECT&gt;" />
+    <option name="useAlternativeWorkingDir" value="false" />
+    <option name="workingDirSelection" value="&lt;MODULE&gt;" />
   </component>
 </module>
