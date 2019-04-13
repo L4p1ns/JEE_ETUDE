@@ -1,28 +1,58 @@
 package model;
 
-public class Personnel {
-    private String matricule;
-    private String fonction;
+public class Personnel extends Personne {
+    private String email;
+    private String password;
+    private String domaine;
+    private String grade;
+    private String type;
 
-    public Personnel(String matricule, String fonction) {
-        super();
-        this.matricule = matricule;
-        this.fonction = fonction;
+    public Personnel(Integer id, String matricule, String nom, String dateNaissance2, String tel, String sexe, String email, String password, String domaine, String grade, String type) {
+        super(id, matricule, nom, dateNaissance2, tel, sexe);
+        this.email = email;
+        this.password = password;
+        this.domaine = domaine;
+        this.grade = grade;
+        this.type = type;
     }
 
-    public String getMatricule() {
-        return matricule;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMatricule(String matricule) {
-        this.matricule = matricule;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getFonction() {
-        return fonction;
+    public String getPassword() {
+        return password;
     }
 
-    public void setFonction(String fonction) {
-        this.fonction = fonction;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDomaine() {
+        return domaine;
+    }
+
+    public void setDomaine(String domaine) {
+        this.domaine = domaine;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

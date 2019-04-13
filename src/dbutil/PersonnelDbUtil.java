@@ -1,0 +1,164 @@
+package dbutil;
+
+import model.Personnel;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PersonnelDbUtil {
+    private DataSource dataSource;
+
+    public PersonnelDbUtil(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    static void closeConnexion(Connection myConn, Statement myStmt, ResultSet myRs) {
+        try {
+            if (myRs != null) {
+                myRs.close();
+            }
+
+            if (myStmt != null) {
+                myStmt.close();
+            }
+
+            if (myConn != null) {
+                myConn.close();
+            }
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    public List<Personnel> getPersonnels() throws Exception {
+        List<Personnel> personnels = new ArrayList<>();
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = dataSource.getConnection();
+
+            String sql = "select * from personnel";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+            while (myRs.next()) {
+                String matricule = myRs.getString("matricule");
+                String nom = myRs.getString("nom");
+                String dateNaissance = myRs.getString("dateNaissance");
+                String telephone = myRs.getString("telephone");
+                String sexe = myRs.getString("sexe");
+                String email = myRs.getString("email");
+                String password = myRs.getString("password");
+                String domaine = myRs.getString("domaine");
+                String grade = myRs.getString("grade");
+                String type = myRs.getString("type");
+
+                Personnel tempPersonnel = new Personnel(null, matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, grade, type);
+
+                personnels.add(tempPersonnel);
+            }
+        } finally {
+            // close JDBC objects
+            close(myConn, myStmt, myRs);
+        }
+        return personnels;
+    }
+
+    public void addPersonnel(Personnel personnel) throws Exception {
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+
+        try {
+            // get db connection
+            myConn = dataSource.getConnection();
+
+            // create sql for insert
+            String sql = "insert into personnel "
+                    + "(matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, grade, type) "
+                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            myStmt = myConn.prepareStatement(sql);
+
+            myStmt.setString(1, personnel.getMatricule());
+            myStmt.setString(2, personnel.getNom());
+            myStmt.setString(3, personnel.getDateNaissance());
+            myStmt.setString(4, personnel.getTel());
+            myStmt.setString(5, personnel.getSexe());
+            myStmt.setString(6, personnel.getEmail());
+            myStmt.setString(7, personnel.getPassword());
+            myStmt.setString(8, personnel.getDomaine());
+            myStmt.setString(9, personnel.getGrade());
+            myStmt.setString(10, personnel.getType());
+
+            // execute sql insert
+            myStmt.execute();
+        } finally {
+            // clean up JDBC objects
+            close(myConn, myStmt, null);
+        }
+    }
+
+
+    public Personnel getPersonnel(String matriculeId) throws Exception {
+
+        Personnel personnel = null;
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            // get connection to database
+            myConn = dataSource.getConnection();
+
+            // create sql to get selected patient
+            String sql = "select * from personnel where matricule=?";
+
+            // create prepared statement
+            myStmt = myConn.prepareStatement(sql);
+
+            // set params
+            myStmt.setString(1, matriculeId);
+
+            // execute statement
+            myRs = myStmt.executeQuery();
+
+            // retrieve data from result set row
+            if (myRs.next()) {
+                String matricule = myRs.getString("matricule");
+                String nom = myRs.getString("nom");
+                String dateNaissance = myRs.getString("dateNaissance");
+                String telephone = myRs.getString("telephone");
+                String sexe = myRs.getString("sexe");
+                String email = myRs.getString("email");
+                String password = myRs.getString("password");
+                String domain = myRs.getString("domain");
+                String grade = myRs.getString("grade");
+                String type = myRs.getString("type");
+
+                personnel = new Personnel(null, matricule, nom, dateNaissance, telephone, sexe, email, password, domain, grade, type);
+            } else {
+                throw new Exception("Could not find personnel matricule: " + matriculeId);
+            }
+
+            return personnel;
+        } finally {
+            // clean up JDBC objects
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void close(Connection myConn, Statement myStmt, ResultSet myRs) {
+        closeConnexion(myConn, myStmt, myRs);
+    }
+}
