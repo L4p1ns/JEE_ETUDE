@@ -6,9 +6,9 @@ public abstract class Personne {
     protected String dateNaissance;
     protected String tel;
     protected String sexe;
-    private int id;
+    protected Integer id;
 
-    public Personne(int id, String matricule, String nom, String dateNaissance2, String tel, String sexe) {
+    public Personne(Integer id, String matricule, String nom, String dateNaissance2, String tel, String sexe) {
         super();
         this.id = id;
         this.matricule = matricule;
@@ -18,11 +18,11 @@ public abstract class Personne {
         this.sexe = sexe;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

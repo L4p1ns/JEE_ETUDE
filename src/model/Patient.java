@@ -10,9 +10,9 @@ import java.util.List;
 public class Patient extends Personne {
     private String GroupeSanguin;
     private List<Ticket> tickets;
-    public Patient(int id, String matricule, String nom, String dateNaissance, String tel, String sexe, String GroupeSanguin) {
+
+    public Patient(Integer id, String matricule, String nom, String dateNaissance, String tel, String sexe, String GroupeSanguin) {
         super(id, matricule, nom, dateNaissance, tel, sexe);
-        // TODO Auto-generated constructor stubthi
         this.GroupeSanguin = GroupeSanguin;
 
     }
