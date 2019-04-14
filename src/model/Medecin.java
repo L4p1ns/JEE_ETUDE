@@ -6,9 +6,8 @@ public class Medecin extends Personne {
     private String password;
     private String grade;
 
-    public Medecin(int id, String matricule, String nom, String dateNaissance, String tel, String sexe) {
-        super(id, matricule, nom, dateNaissance, tel, sexe);
-        // TODO Auto-generated constructor stub
+    public Medecin(Integer id, String matricule, String nom, String dateNaissance2, String tel, String sexe, String email, String password, String grade) {
+        super(id, matricule, nom, dateNaissance2, tel, sexe);
         this.email = email;
         this.password = password;
         this.grade = grade;

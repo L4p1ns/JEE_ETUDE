@@ -7,11 +7,10 @@ public class Caissier extends Personne {
     private String password;
     private List<Ticket> tickets;
 
-    public Caissier(int id, String matricule, String nom, String dateNaissance, String tel, String sexe, String email, String password) {
+    public Caissier(Integer id, String matricule, String nom, String dateNaissance, String tel, String sexe, String email, String password) {
         super(id, matricule, nom, dateNaissance, tel, sexe);
         this.email = email;
         this.password = password;
-        // TODO Auto-generated constructor stub
     }
 
     public String getEmail() {
