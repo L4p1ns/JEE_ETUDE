@@ -62,7 +62,7 @@ public class PersonnelController extends HttpServlet {
                     list(request, response);
             }
         } catch (Exception e) {
-            System.out.println("Erreeur Servlet Patient: " + e);
+            System.out.println("Erreeur Servlet Personnel: " + e);
             System.out.println(e.getMessage());
             throw new ServletException(e);
         }

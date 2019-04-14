@@ -1,8 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Add Patient</title>
+    <title>Add Specialite</title>
 
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <link type="text/css" rel="stylesheet" href="css/add-patient-style.css">
@@ -16,41 +17,36 @@
 </div>
 
 <div id="container">
-    <h3>Add Patient</h3>
+    <h3>Add Specialite</h3>
 
-    <form action="PatientController" method="GET">
+    <form action="Specialite" method="GET">
 
         <input type="hidden" name="command" value="ADD"/>
 
         <table>
             <tbody>
             <tr>
-                <td><label>Matricule:</label></td>
-                <td><input type="text" name="matricule"/></td>
-            </tr>
-
-            <tr>
                 <td><label>Nom:</label></td>
                 <td><input type="text" name="nom"/></td>
             </tr>
             <tr>
-                <td><label>Sexe:</label></td>
-                <td><input type="text" name="sexe"/></td>
+                <td><label>Tarif:</label></td>
+                <td><input type="text" name="tarif"/></td>
             </tr>
 
             <tr>
-                <td><label>Date De Naissance:</label></td>
-                <td><input type="date" name="dateNaissance"/></td>
+                <td><label>Personnel:</label></td>
+                <td>
+                    <select name="personnel_id" style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
+                        <c:forEach var="item" items="${LIST_PERSONNEL}">
+                            <option value="${item.matricule}">
+                                <c:out value="${item.nom}"/>
+                            </option>
+                        </c:forEach>
+                    </select>
+                </td>
             </tr>
 
-            <tr>
-                <td><label>Telephone:</label></td>
-                <td><input type="number" name="tel"/></td>
-            </tr>
-            <tr>
-                <td><label>Groupe Sanguin:</label></td>
-                <td><input type="text" name="groupeSanguin"/></td>
-            </tr>
             <tr>
                 <td><label></label></td>
                 <td><input type="submit" value="Save" class="save"/></td>
@@ -63,7 +59,7 @@
     <div style="clear: both;"></div>
 
     <p>
-        <a href="PatientController">Back to List</a>
+        <a href="Specialite">Back to List</a>
     </p>
 </div>
 </body>

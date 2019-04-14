@@ -10,11 +10,11 @@ import java.util.Date;
 public class Ticket {
     private int id;
     private Date datePrise;
-    private Speciaite specialite;
+    private Specialite specialite;
     private Patient patient;
     private Caissier caissier;
 
-    public Ticket(int id, Date datePrise, Speciaite specialite, Patient patient, Caissier caissier) {
+    public Ticket(int id, Date datePrise, Specialite specialite, Patient patient, Caissier caissier) {
         this.id = id;
         this.datePrise = datePrise;
         this.specialite = specialite;
@@ -38,11 +38,11 @@ public class Ticket {
         this.datePrise = datePrise;
     }
 
-    public Speciaite getSpecialite() {
+    public Specialite getSpecialite() {
         return specialite;
     }
 
-    public void setSpecialite(Speciaite specialite) {
+    public void setSpecialite(Specialite specialite) {
         this.specialite = specialite;
     }
 

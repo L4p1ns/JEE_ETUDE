@@ -5,7 +5,7 @@
     <title>Add Personnel</title>
 
     <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link type="text/css" rel="stylesheet" href="css/add-patient-style.css-style.css">
+    <link type="text/css" rel="stylesheet" href="css/add-patient-style.css">
 </head>
 
 <body>
