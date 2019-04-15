@@ -39,7 +39,7 @@
                 <td>
                     <select name="personnel_id" style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
                         <c:forEach var="item" items="${LIST_PERSONNEL}">
-                            <option value="${item.matricule}">
+                            <option value="${item.id}">
                                 <c:out value="${item.nom}"/>
                             </option>
                         </c:forEach>

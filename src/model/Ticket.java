@@ -1,26 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
+
 
 import java.util.Date;
 
 public class Ticket {
     private int id;
     private Date datePrise;
-    private Specialite specialite;
-    private Patient patient;
-    private Caissier caissier;
+    private Integer specialite;
+    private Integer patient;
+    private Integer caissier;
+    private Integer personnel;
+    private Double montant;
 
-    public Ticket(int id, Date datePrise, Specialite specialite, Patient patient, Caissier caissier) {
+    public Ticket(Integer id, Date datePrise, Integer specialite, Integer patient, Integer caissier, Integer personnel, Double montant) {
         this.id = id;
         this.datePrise = datePrise;
         this.specialite = specialite;
         this.patient = patient;
         this.caissier = caissier;
+        this.personnel = personnel;
+        this.montant = montant;
     }
+
 
     public int getId() {
         return id;
@@ -38,29 +39,43 @@ public class Ticket {
         this.datePrise = datePrise;
     }
 
-    public Specialite getSpecialite() {
+    public Integer getSpecialite() {
         return specialite;
     }
 
-    public void setSpecialite(Specialite specialite) {
+    public void setSpecialite(Integer specialite) {
         this.specialite = specialite;
     }
 
-    public Patient getPatient() {
+    public Integer getPatient() {
         return patient;
     }
 
-    public void setPatient(Patient patient) {
+    public void setPatient(Integer patient) {
         this.patient = patient;
     }
 
-    public Caissier getCaissier() {
+    public Integer getCaissier() {
         return caissier;
     }
 
-    public void setCaissier(Caissier caissier) {
+    public void setCaissier(Integer caissier) {
         this.caissier = caissier;
     }
 
+    public Integer getPersonnel() {
+        return personnel;
+    }
 
+    public void setPersonnel(Integer personnel) {
+        this.personnel = personnel;
+    }
+
+    public Double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(Double montant) {
+        this.montant = montant;
+    }
 }

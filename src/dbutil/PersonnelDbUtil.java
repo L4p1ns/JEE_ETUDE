@@ -51,6 +51,7 @@ public class PersonnelDbUtil {
 
             myRs = myStmt.executeQuery(sql);
             while (myRs.next()) {
+                Integer id = myRs.getInt("id");
                 String matricule = myRs.getString("matricule");
                 String nom = myRs.getString("nom");
                 String dateNaissance = myRs.getString("dateNaissance");
@@ -62,7 +63,7 @@ public class PersonnelDbUtil {
                 String grade = myRs.getString("grade");
                 String type = myRs.getString("type");
 
-                Personnel tempPersonnel = new Personnel(null, matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, grade, type);
+                Personnel tempPersonnel = new Personnel(id, matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, grade, type);
 
                 personnels.add(tempPersonnel);
             }
