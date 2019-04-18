@@ -24,21 +24,19 @@ public class TicketDbUtil {
         try {
             myConn = dataSource.getConnection();
 
-            String sql = "select id, date_prise, id_specialite, id_caissier, id_patient, id_personnel, montant from ticket";
+            String sql = "select * from ticket";
 
             myStmt = myConn.createStatement();
 
             myRs = myStmt.executeQuery(sql);
             while (myRs.next()) {
                 int id = myRs.getInt("id");
-                Date date_prise =  myRs.getDate("date_prise");
+                Date date_prise = myRs.getDate("datePrise");
                 Integer id_specialite = myRs.getInt("id_specialite");
-                Integer id_patient = myRs.getInt("id_caissier");
-                Integer id_caissier = myRs.getInt("id_patient");
+                String id_patient = myRs.getString("id_patient");
                 Integer personnel = myRs.getInt("id_personnel");
-                Double montant = myRs.getDouble("montant");
 
-                Ticket ticket = new Ticket(id, date_prise, id_specialite, id_patient, id_caissier, personnel, montant);
+                Ticket ticket = new Ticket(id, date_prise, id_specialite, id_patient, personnel);
                 tickets.add(ticket);
             }
         } finally {
@@ -59,17 +57,16 @@ public class TicketDbUtil {
 
             // create sql for insert
             String sql = "insert into ticket "
-                    + "(id_specialite, id_caissier, id_patient, id_personnel, montant) "
-                    + "values (?, ?, ?, ?, ?)";
+                    + "(datePrise, id_personnel, id_specialite, id_patient) "
+                    + "values (?, ?, ?, ?)";
 
             myStmt = myConn.prepareStatement(sql);
 
 //            myStmt.setDate(1, (java.sql.Date) ticket.getDatePrise());
-            myStmt.setInt(1, ticket.getSpecialite());
-            myStmt.setInt(2, ticket.getCaissier());
-            myStmt.setInt(3, ticket.getPatient());
-            myStmt.setInt(4, ticket.getPersonnel());
-            myStmt.setDouble(5, ticket.getMontant());
+            myStmt.setDate(1, (Date) ticket.getDatePrise());
+            myStmt.setInt(2, ticket.getPersonnel());
+            myStmt.setInt(3, ticket.getSpecialite());
+            myStmt.setString(4, ticket.getPatient());
 
             // execute sql insert
             myStmt.execute();

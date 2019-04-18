@@ -57,25 +57,13 @@
                     </select>
                 </td>
             </tr>
-            <tr>
-                <td><label>Caissier:</label></td>
-                <td>
-                    <select name="id_caissier"
-                            style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
-                        <c:forEach var="item" items="${LIST_CAISSIERS}">
-                            <option value="${item.id}">
-                                <c:out value="${item.nom}"/>
-                            </option>
-                        </c:forEach>
-                    </select>
-                </td>
-            </tr>
+
             <tr>
                 <td><label>Patient:</label></td>
                 <td>
                     <select name="id_patient" style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
                         <c:forEach var="item" items="${LIST_PATIENTS}">
-                            <option value="${item.id}">
+                            <option value="${item.matricule}">
                                 <c:out value="${item.nom}"/>
                             </option>
                         </c:forEach>

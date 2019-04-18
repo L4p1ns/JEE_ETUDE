@@ -4,10 +4,11 @@
 
 <head>
     <title>Tickets</title>
-    <style>
-        <%--<jsp:include page="header.jsp" />--%>
+    <style type="text/css">
+        <jsp:include page="header.jsp" />
     </style>
-    <link type="text/css" rel="stylesheet" href="css/style.css">
+
+    <%--<link type="text/css" rel="stylesheet" href="css/style.css">--%>
 </head>
 
 <body>
@@ -25,19 +26,21 @@
             <c:param name="command" value="LOADFORSELECTBOX"/>
             <c:param name="LIST_PERSONNELS" value="${LIST_PERSONNELS}"/>
             <c:param name="LIST_PATIENTS" value="${LIST_PATIENTS}"/>
-            <c:param name="LIST_CAISSIERS" value="${LIST_CAISSIERS}"/>
             <c:param name="LIST_SPECIALITES" value="${LIST_SPECIALITES}"/>
         </c:url>
         <a href="${linkAddForm}" class="add-patient-button">
             Add Ticket
         </a>
-        <br />
+        <br/>
         <table>
 
             <tr>
                 <th>Id</th>
                 <%--<th>Date Prise</th>--%>
-                <th>Montant</th>
+                <th>Date Prise</th>
+                <th>Patient</th>
+                <th>Specialite</th>
+                <th>Caissier</th>
                 <th>Action</th>
             </tr>
 
@@ -57,8 +60,11 @@
 
                 <tr>
                     <td> ${ticket.id} </td>
-                    <%--<td> ${ticket.date_prise} </td>--%>
-                    <td> ${ticket.montant} </td>
+                        <%--<td> ${ticket.date_prise} </td>--%>
+                    <td> ${ticket.datePrise} </td>
+                    <td> ${ticket.patient} </td>
+                    <td> ${ticket.specialite} </td>
+                    <td> ${ticket.personnel} </td>
 
                     <td>
                         <a href="${tempLink}">Update</a>
@@ -73,5 +79,5 @@
     </div>
 </div>
 </body>
-<%--<jsp:include page="footer.jsp" />--%>
+<jsp:include page="footer.jsp" />
 </html>

@@ -31,7 +31,6 @@
         <table>
 
             <tr>
-                <th>Id</th>
                 <th>Matricule</th>
                 <th>Nom</th>
                 <th>Date De Naissance</th>
@@ -46,17 +45,16 @@
                 <!-- set up a link for each patient -->
                 <c:url var="tempLink" value="PatientController">
                     <c:param name="command" value="LOAD"/>
-                    <c:param name="patientId" value="${tempPatient.id}"/>
+                    <c:param name="patientId" value="${tempPatient.matricule}"/>
                 </c:url>
 
                 <!-- set up a link to delete a patient -->
                 <c:url var="deleteLink" value="PatientController">
                     <c:param name="command" value="DELETE"/>
-                    <c:param name="patientId" value="${tempPatient.id}"/>
+                    <c:param name="patientId" value="${tempPatient.matricule}"/>
                 </c:url>
 
                 <tr>
-                    <td> ${tempPatient.id} </td>
                     <td> ${tempPatient.matricule} </td>
                     <td> ${tempPatient.nom} </td>
                     <td> ${tempPatient.dateNaissance} </td>

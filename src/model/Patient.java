@@ -17,6 +17,11 @@ public class Patient extends Personne {
 
     }
 
+    public Patient(String matricule, String nom, String dateNaissance2, String tel, String sexe, String groupeSanguin) {
+        super(matricule, nom, dateNaissance2, tel, sexe);
+       this.GroupeSanguin = groupeSanguin;
+    }
+
     public String getGroupeSanguin() {
         return GroupeSanguin;
     }

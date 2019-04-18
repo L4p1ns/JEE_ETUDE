@@ -54,16 +54,16 @@ public class PersonnelDbUtil {
                 Integer id = myRs.getInt("id");
                 String matricule = myRs.getString("matricule");
                 String nom = myRs.getString("nom");
-                String dateNaissance = myRs.getString("dateNaissance");
+                String prenom = myRs.getString("prenom");
+                String dateNaissance = myRs.getString("date_naissance");
                 String telephone = myRs.getString("telephone");
                 String sexe = myRs.getString("sexe");
                 String email = myRs.getString("email");
                 String password = myRs.getString("password");
                 String domaine = myRs.getString("domaine");
-                String grade = myRs.getString("grade");
                 String type = myRs.getString("type");
 
-                Personnel tempPersonnel = new Personnel(id, matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, grade, type);
+                Personnel tempPersonnel = new Personnel(id,matricule,nom,dateNaissance,telephone,sexe,email,password,domaine,prenom,type);
 
                 personnels.add(tempPersonnel);
             }
@@ -85,21 +85,21 @@ public class PersonnelDbUtil {
 
             // create sql for insert
             String sql = "insert into personnel "
-                    + "(matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, grade, type) "
+                    + "(nom, date_naissance, telephone, sexe, email, password, domaine, type, prenom, matricule) "
                     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             myStmt = myConn.prepareStatement(sql);
 
-            myStmt.setString(1, personnel.getMatricule());
-            myStmt.setString(2, personnel.getNom());
-            myStmt.setString(3, personnel.getDateNaissance());
-            myStmt.setString(4, personnel.getTel());
-            myStmt.setString(5, personnel.getSexe());
-            myStmt.setString(6, personnel.getEmail());
-            myStmt.setString(7, personnel.getPassword());
-            myStmt.setString(8, personnel.getDomaine());
-            myStmt.setString(9, personnel.getGrade());
-            myStmt.setString(10, personnel.getType());
+            myStmt.setString(1, personnel.getNom());
+            myStmt.setString(2, personnel.getDateNaissance());
+            myStmt.setString(3, personnel.getTel());
+            myStmt.setString(4, personnel.getSexe());
+            myStmt.setString(5, personnel.getEmail());
+            myStmt.setString(6, personnel.getPassword());
+            myStmt.setString(7, personnel.getDomaine());
+            myStmt.setString(8, personnel.getType());
+            myStmt.setString(9, personnel.getPrenom());
+            myStmt.setString(10, personnel.getMatricule());
 
             // execute sql insert
             myStmt.execute();

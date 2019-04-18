@@ -123,7 +123,7 @@ public class PatientController extends HttpServlet {
         String groupeSanguin = request.getParameter("groupeSanguin");
 
         // create a new patient object
-        Patient patient = new Patient(null, matricule, nom, dateNaissance, telephone, sexe, groupeSanguin);
+        Patient patient = new Patient(matricule, nom, dateNaissance, telephone, sexe, groupeSanguin);
 
         // add the patient to the database
         patientDbUtil.addPatient(patient);

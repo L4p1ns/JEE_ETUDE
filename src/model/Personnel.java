@@ -4,15 +4,15 @@ public class Personnel extends Personne {
     private String email;
     private String password;
     private String domaine;
-    private String grade;
+    private String prenom;
     private String type;
 
-    public Personnel(Integer id, String matricule, String nom, String dateNaissance2, String tel, String sexe, String email, String password, String domaine, String grade, String type) {
+    public Personnel(Integer id, String matricule, String nom, String dateNaissance2, String tel, String sexe, String email, String password, String domaine, String prenom, String type) {
         super(id, matricule, nom, dateNaissance2, tel, sexe);
         this.email = email;
         this.password = password;
         this.domaine = domaine;
-        this.grade = grade;
+        this.prenom = prenom;
         this.type = type;
     }
 
@@ -40,12 +40,12 @@ public class Personnel extends Personne {
         this.domaine = domaine;
     }
 
-    public String getGrade() {
-        return grade;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public String getType() {

@@ -39,7 +39,6 @@ public class PatientDbUtil {
             while (myRs.next()) {
 
                 // retrieve data from result set row
-                int id = myRs.getInt("id");
                 String matricule = myRs.getString("matricule");
                 String nom = myRs.getString("nom");
                 String dateNaissance = myRs.getString("dateNaissance");
@@ -48,7 +47,7 @@ public class PatientDbUtil {
                 String groupeSanguin = myRs.getString("groupeSanguin");
 
                 // create new patient object
-                Patient tempPatient = new Patient(id, matricule, nom, dateNaissance, telephone, sexe, groupeSanguin);
+                Patient tempPatient = new Patient(matricule, nom, dateNaissance, telephone, sexe, groupeSanguin);
 
                 // add it to the list of patients
                 patients.add(tempPatient);

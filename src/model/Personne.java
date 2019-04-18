@@ -18,6 +18,14 @@ public abstract class Personne {
         this.sexe = sexe;
     }
 
+    public Personne(String matricule, String nom, String dateNaissance2, String tel, String sexe) {
+        this.matricule=matricule;
+        this.nom=nom;
+        this.dateNaissance=dateNaissance2;
+        this.tel=tel;
+        this.sexe=sexe;
+    }
+
     public Integer getId() {
         return id;
     }

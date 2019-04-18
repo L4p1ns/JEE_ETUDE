@@ -1,8 +1,13 @@
 package controller;
 
-import dbutil.*;
-import model.*;
-import org.apache.taglibs.standard.lang.jstl.Logger;
+import dbutil.PatientDbUtil;
+import dbutil.PersonnelDbUtil;
+import dbutil.SpecialiteDbUtil;
+import dbutil.TicketDbUtil;
+import model.Patient;
+import model.Personnel;
+import model.Specialite;
+import model.Ticket;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -13,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +26,6 @@ import java.util.List;
 public class TicketController extends HttpServlet {
     private TicketDbUtil ticketDbUtil;
     private PatientDbUtil patientDbUtil;
-    private CaissierDbUtil caissierDbUtil;
     private SpecialiteDbUtil specialiteDbUtil;
     private PersonnelDbUtil personnelDbUtil;
 
@@ -33,7 +38,6 @@ public class TicketController extends HttpServlet {
         try {
             ticketDbUtil = new TicketDbUtil(dataSource);
             patientDbUtil = new PatientDbUtil(dataSource);
-            caissierDbUtil = new CaissierDbUtil(dataSource);
             specialiteDbUtil = new SpecialiteDbUtil(dataSource);
             personnelDbUtil = new PersonnelDbUtil(dataSource);
         } catch (Exception e) {
@@ -87,13 +91,11 @@ public class TicketController extends HttpServlet {
     }
 
     private void charger(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Patient> patients = patientDbUtil.getPatients();
-        List<Caissier> caissiers = caissierDbUtil.getCaissiers();
+        List<Patient> patientss = patientDbUtil.getPatients();
         List<Specialite> specialites = specialiteDbUtil.getSpecialites();
         List<Personnel> personnels = personnelDbUtil.getPersonnels();
-
-        request.setAttribute("LIST_PATIENTS", patients);
-        request.setAttribute("LIST_CAISSIERS", caissiers);
+        patientss.forEach(p -> System.out.println(p.getMatricule()+p.getGroupeSanguin()+p.getNom()));
+        request.setAttribute("LIST_PATIENTS", patientss);
         request.setAttribute("LIST_SPECIALITES", specialites);
         request.setAttribute("LIST_PERSONNELS", personnels);
 
@@ -112,17 +114,16 @@ public class TicketController extends HttpServlet {
 
     private void ajoutTicket(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Integer specialite = Integer.parseInt(request.getParameter("id_specialite"));
-        Integer id_patient = Integer.parseInt(request.getParameter("id_patient"));
-        Integer id_caissier = Integer.parseInt(request.getParameter("id_caissier"));
         Integer personnel = Integer.parseInt(request.getParameter("id_personnel"));
+        String id_patient = request.getParameter("id_patient");
         Double montant = Double.parseDouble(request.getParameter("montant"));
 //        Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
-        System.out.println("Avant Ajout: "+specialite+" - "+id_caissier+" - "+id_caissier+" - "+personnel+"_"+montant);
-        Ticket ticket = new Ticket(null,new Date(), specialite, id_patient, id_caissier, personnel, montant);
+//        System.out.println("Avant Ajout: "+specialite+" - "+id_caissier+" - "+id_caissier+" - "+personnel+"_"+montant);
+        Ticket ticket = new Ticket(new java.sql.Date(Calendar.getInstance().getTime().getTime()), specialite, id_patient, personnel);
+//        System.out.println(ticket);
         ticketDbUtil.addTicket(ticket);
-        System.out.println("Apres Ajout: "+specialite+" - "+id_caissier+" - "+id_caissier+" - "+personnel+"_"+montant);
-        System.out.println("Ticket: "+ticket);
+
         listTicket(request, response);
     }
 
