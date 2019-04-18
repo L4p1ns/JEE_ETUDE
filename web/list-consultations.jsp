@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Tickets</title>
+    <title>Consultation</title>
     <style type="text/css">
         <jsp:include page="header.jsp" />
     </style>
@@ -22,55 +22,52 @@
 <div id="container">
 
     <div id="content">
-        <c:url var="linkAddForm" value="Ticket">
+        <c:url var="linkAddForm" value="Consultation">
             <c:param name="command" value="LOADFORSELECTBOX"/>
-            <c:param name="LIST_PERSONNELS" value="${LIST_PERSONNELS}"/>
-            <c:param name="LIST_PATIENTS" value="${LIST_PATIENTS}"/>
-            <c:param name="LIST_SPECIALITES" value="${LIST_SPECIALITES}"/>
+            <c:param name="LIST_MEDECINS" value="${LIST_MEDECINS}"/>
+            <c:param name="LIST_TICKETS" value="${LIST_TICKETS}"/>
         </c:url>
         <a href="${linkAddForm}" class="add-patient-button">
-            Add Ticket
+            Add Consultation
         </a>
         <br/>
         <table>
 
             <tr>
                 <th>Id</th>
-                <%--<th>Date Prise</th>--%>
                 <th>Date Prise</th>
-                <th>Patient</th>
-                <th>Specialite</th>
-                <th>Caissier</th>
+                <th>Medecin</th>
+                <th>Ticket</th>
+                <th>Motif</th>
                 <th>Action</th>
             </tr>
 
-            <c:forEach var="ticket" items="${LIST_TICKETS}">
+            <c:forEach var="consultation" items="${LIST_CONSULTATIONS}">
 
                 <!-- set up a link for each patient -->
-                <c:url var="tempLink" value="/Ticket">
+                <c:url var="tempLink" value="/Consultation">
                     <c:param name="command" value="LOAD"/>
-                    <c:param name="ticketId" value="${ticket.id}"/>
+                    <c:param name="consultationId" value="${consultation.id}"/>
                 </c:url>
 
                 <!-- set up a link to delete a patient -->
-                <c:url var="deleteLink" value="/Ticket">
+                <c:url var="deleteLink" value="/Consultation">
                     <c:param name="command" value="DELETE"/>
-                    <c:param name="patientId" value="${ticket.id}"/>
+                    <c:param name="patientId" value="${consultation.id}"/>
                 </c:url>
 
                 <tr>
-                    <td> ${ticket.id} </td>
-                        <%--<td> ${ticket.date_prise} </td>--%>
-                    <td> ${ticket.datePrise} </td>
-                    <td> ${ticket.patient} </td>
-                    <td> ${ticket.specialite} </td>
-                    <td> ${ticket.personnel} </td>
+                    <td> ${consultation.id} </td>
+                    <td> ${consultation.date} </td>
+                    <td> ${consultation.medecin_id} </td>
+                    <td> ${consultation.ticket_id} </td>
+                    <td> ${consultation.motif} </td>
 
                     <td>
                         <a href="${tempLink}">Update</a>
                         |
                         <a href="${deleteLink}"
-                           onclick="if (!(confirm('Are you sure you want to delete this ticket?'))) return false">
+                           onclick="if (!(confirm('Are you sure you want to delete this consultation?'))) return false">
                             Delete</a>
                     </td>
                 </tr>

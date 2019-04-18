@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Add Ticket</title>
+    <title>Add Consultation</title>
 
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <link type="text/css" rel="stylesheet" href="css/add-patient-style.css">
@@ -17,25 +17,25 @@
 </div>
 
 <div id="container">
-    <h3>Add Ticket</h3>
+    <h3>Add Consultation</h3>
 
-    <form action="Ticket" method="GET">
+    <form action="Consultation" method="GET">
 
         <input type="hidden" name="command" value="ADD"/>
 
         <table>
             <tbody>
             <tr>
-                <td><label>Montant:</label></td>
-                <td><input type="number" name="montant"/></td>
+                <td><label>Motif:</label></td>
+                <td><input type="text" name="motif"/></td>
             </tr>
 
             <tr>
                 <td><label>Personnel:</label></td>
                 <td>
-                    <select name="id_personnel"
+                    <select name="id_medecin"
                             style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
-                        <c:forEach var="item" items="${LIST_PERSONNELS}">
+                        <c:forEach var="item" items="${LIST_MEDECINS}">
                             <option value="${item.id}">
                                 <c:out value="${item.nom}"/>
                             </option>
@@ -45,31 +45,19 @@
             </tr>
 
             <tr>
-                <td><label>Specialite:</label></td>
+                <td><label>Ticket:</label></td>
                 <td>
-                    <select name="id_specialite"
+                    <select name="id_ticket"
                             style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
-                        <c:forEach var="item" items="${LIST_SPECIALITES}">
+                        <c:forEach var="item" items="${LIST_TICKETS}">
                             <option value="${item.id}">
-                                <c:out value="${item.nom}"/>
+                                <c:out value="${item.patient}"/>
                             </option>
                         </c:forEach>
                     </select>
                 </td>
             </tr>
 
-            <tr>
-                <td><label>Patient:</label></td>
-                <td>
-                    <select name="id_patient" style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
-                        <c:forEach var="item" items="${LIST_PATIENTS}">
-                            <option value="${item.matricule}">
-                                <c:out value="${item.nom}"/>
-                            </option>
-                        </c:forEach>
-                    </select>
-                </td>
-            </tr>
             <tr>
                 <td><label></label></td>
                 <td><input type="submit" value="Save" class="save"/></td>

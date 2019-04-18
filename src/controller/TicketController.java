@@ -116,12 +116,8 @@ public class TicketController extends HttpServlet {
         Integer specialite = Integer.parseInt(request.getParameter("id_specialite"));
         Integer personnel = Integer.parseInt(request.getParameter("id_personnel"));
         String id_patient = request.getParameter("id_patient");
-        Double montant = Double.parseDouble(request.getParameter("montant"));
-//        Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
-//        System.out.println("Avant Ajout: "+specialite+" - "+id_caissier+" - "+id_caissier+" - "+personnel+"_"+montant);
         Ticket ticket = new Ticket(new java.sql.Date(Calendar.getInstance().getTime().getTime()), specialite, id_patient, personnel);
-//        System.out.println(ticket);
         ticketDbUtil.addTicket(ticket);
 
         listTicket(request, response);

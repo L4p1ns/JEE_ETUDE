@@ -73,6 +73,84 @@ public class PersonnelDbUtil {
         }
         return personnels;
     }
+    public List<Personnel> getMedecins() throws Exception {
+        List<Personnel> medecins = new ArrayList<>();
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = dataSource.getConnection();
+
+            String sql = "select * from personnel where type='MEDECIN'";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+            while (myRs.next()) {
+                Integer id = myRs.getInt("id");
+                String matricule = myRs.getString("matricule");
+                String nom = myRs.getString("nom");
+                String prenom = myRs.getString("prenom");
+                String dateNaissance = myRs.getString("date_naissance");
+                String telephone = myRs.getString("telephone");
+                String sexe = myRs.getString("sexe");
+                String email = myRs.getString("email");
+                String password = myRs.getString("password");
+                String domaine = myRs.getString("domaine");
+                String type = myRs.getString("type");
+
+                Personnel tempPersonnel = new Personnel(id,matricule,nom,dateNaissance,telephone,sexe,email,password,domaine,prenom,type);
+
+                medecins.add(tempPersonnel);
+            }
+        } finally {
+            // close JDBC objects
+            close(myConn, myStmt, myRs);
+        }
+        return medecins;
+    }
+
+    public List<Personnel> getCaissiers() throws Exception {
+        List<Personnel> caissiers = new ArrayList<>();
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = dataSource.getConnection();
+
+            String sql = "select * from personnel where type='CAISSIER'";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+            while (myRs.next()) {
+                Integer id = myRs.getInt("id");
+                String matricule = myRs.getString("matricule");
+                String nom = myRs.getString("nom");
+                String prenom = myRs.getString("prenom");
+                String dateNaissance = myRs.getString("date_naissance");
+                String telephone = myRs.getString("telephone");
+                String sexe = myRs.getString("sexe");
+                String email = myRs.getString("email");
+                String password = myRs.getString("password");
+                String domaine = myRs.getString("domaine");
+                String type = myRs.getString("type");
+
+                Personnel tempPersonnel = new Personnel(id,matricule,nom,dateNaissance,telephone,sexe,email,password,domaine,prenom,type);
+
+                caissiers.add(tempPersonnel);
+            }
+        } finally {
+            // close JDBC objects
+            close(myConn, myStmt, myRs);
+        }
+        return caissiers;
+    }
+
 
     public void addPersonnel(Personnel personnel) throws Exception {
 
