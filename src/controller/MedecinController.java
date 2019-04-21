@@ -1,7 +1,9 @@
 package controller;
 
 import dbutil.MedecinDbUtil;
+import dbutil.PersonnelDbUtil;
 import model.Medecin;
+import model.Personnel;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +20,7 @@ import java.util.List;
 public class MedecinController extends HttpServlet {
 
     private MedecinDbUtil medecinDbUtil;
+    private PersonnelDbUtil personnelDbUtil;
 
     @Resource(name = "jdbc/ges_cons")
     private DataSource dataSource;
@@ -26,6 +29,7 @@ public class MedecinController extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         try {
+            personnelDbUtil = new PersonnelDbUtil(dataSource);
             medecinDbUtil = new MedecinDbUtil(dataSource);
         } catch (Exception e) {
             throw new ServletException(e);
@@ -99,7 +103,7 @@ public class MedecinController extends HttpServlet {
     }
 
     private void listMedecin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Medecin> medecins = medecinDbUtil.getMedecins();
+        List<Personnel> medecins = personnelDbUtil.getMedecins();
         request.setAttribute("LIST_MEDECIN", medecins);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/list-medecins.jsp");

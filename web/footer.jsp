@@ -1,66 +1,27 @@
-<!-- jQuery -->
-<script src="assets/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    <jsp:include page="assets/js/jquery.min.js"/>
+    <jsp:include page="assets/js/popper.min.js"/>
+    <jsp:include page="assets/js/bootstrap.min.js"/>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="assets/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <jsp:include page="assets/plugins/datatables/jquery.dataTables.min.js" />
+    <jsp:include page="assets/plugins/datatables/dataTables.bootstrap4.min.js"/>
+    <%--    Button--%>
+    <jsp:include page="assets/plugins/datatables/dataTables.buttons.min.js"/>
+    <jsp:include page="assets/plugins/datatables/buttons.bootstrap4.min.js"/>
+    <jsp:include page="assets/plugins/datatables/jszip.min.js"/>
+    <jsp:include page="assets/plugins/datatables/pdfmake.min.js"/>
+    <jsp:include page="assets/plugins/datatables/vfs_fonts.js"/>
+    <jsp:include page="assets/plugins/datatables/buttons.html5.min.js"/>
+    <jsp:include page="assets/plugins/datatables/buttons.print.min.js"/>
+<%--    Key Tables--%>
+    <jsp:include page="assets/plugins/datatables/dataTables.keyTable.min.js"/>
 
-<!-- Data table JavaScript -->
-<script src="assets/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <jsp:include page="assets/plugins/datatables/dataTables.responsive.min.js"/>
+    <jsp:include page="assets/plugins/datatables/responsive.bootstrap4.min.js"/>
+    <jsp:include page="assets/plugins/datatables/dataTables.select.min.js"/>
 
-<!-- Slimscroll JavaScript -->
-<script src="assets/dist/js/jquery.slimscroll.js"></script>
-
-<!-- Progressbar Animation JavaScript -->
-<script src="assets/vendors/bower_components/waypoints/lib/jquery.waypoints.min.js"></script>
-<script src="assets/vendors/bower_components/jquery.counterup/jquery.counterup.min.js"></script>
-
-<!-- Fancy Dropdown JS -->
-<script src="assets/dist/js/dropdown-bootstrap-extended.js"></script>
-
-<!-- Sparkline JavaScript -->
-<script src="assets/vendors/jquery.sparkline/dist/jquery.sparkline.min.js"></script>
-
-<!-- Owl JavaScript -->
-<script src="assets/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
-
-<!-- Switchery JavaScript -->
-<script src="assets/vendors/bower_components/switchery/dist/switchery.min.js"></script>
-
-<!-- EChartJS JavaScript -->
-<script src="assets/vendors/bower_components/echarts/dist/echarts-en.min.js"></script>
-<script src="assets/vendors/echarts-liquidfill.min.js"></script>
-
-<!-- Vector Maps JavaScript -->
-<script src="assets/vendors/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="assets/vendors/vectormap/jquery-jvectormap-world-mill-en.js"></script>
-<script src="assets/dist/js/vectormap-data.js"></script>
-
-<!-- Toast JavaScript -->
-<script src="assets/vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
-
-<!-- Piety JavaScript -->
-<script src="assets/vendors/bower_components/peity/jquery.peity.min.js"></script>
-<script src="assets/dist/js/peity-data.js"></script>
-
-<!-- Morris Charts JavaScript -->
-<script src="assets/vendors/bower_components/raphael/raphael.min.js"></script>
-<script src="assets/vendors/bower_components/morris.js/morris.min.js"></script>
-<script src="assets/vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
-
-<!-- Bootstrap Select JavaScript -->
-<script src="assets/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-
-<!-- Flot Charts JavaScript -->
-<script src="assets/vendors/bower_components/Flot/excanvas.min.js"></script>
-<script src="assets/vendors/bower_components/Flot/jquery.flot.js"></script>
-<script src="assets/vendors/bower_components/Flot/jquery.flot.pie.js"></script>
-<script src="assets/vendors/bower_components/Flot/jquery.flot.resize.js"></script>
-<script src="assets/vendors/bower_components/Flot/jquery.flot.time.js"></script>
-<script src="assets/vendors/bower_components/Flot/jquery.flot.stack.js"></script>
-<script src="assets/vendors/bower_components/Flot/jquery.flot.crosshair.js"></script>
-<script src="assets/vendors/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-<script src="assets/dist/js/flot-data.js"></script>
-
-<!-- Init JavaScript -->
-<script src="assets/dist/js/init.js"></script>
-<script src="assets/dist/js/dashboard2-data.js"></script>
+    <jsp:include page="assets/js/waves.js"/>
+    <jsp:include page="assets/js/jquery.slimscroll.js"/>
+    <jsp:include page="assets/js/jquery.core.js"/>
+    <jsp:include page="assets/js/jquery.app.js"/>
+</script>

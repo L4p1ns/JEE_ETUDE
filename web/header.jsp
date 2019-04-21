@@ -1,18 +1,20 @@
-<!-- Data table CSS -->
-<link href="assets/vendors/bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta content="Gestion des consultation" name="description" />
+<meta content="GesCons" name="author" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-<!-- Toast CSS -->
-<link href="assets/vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet" type="text/css">
+<style type="text/css">
 
-<!-- Morris Charts CSS -->
-<link href="assets/vendors/bower_components/morris.js/morris.css" rel="stylesheet" type="text/css"/>
+    <jsp:include page="assets/plugins/datatables/dataTables.bootstrap4.min.css" />
+    <jsp:include page="assets/plugins/datatables/buttons.bootstrap4.min.css"  />
+    <jsp:include page="assets/plugins/datatables/responsive.bootstrap4.min.css" />
+    <jsp:include page="assets/plugins/datatables/select.bootstrap4.min.css"  />
 
-<!-- bootstrap-select CSS -->
-<link href="assets/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>
-
-
-<!-- vector map CSS -->
-<link href="assets/vendors/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" type="text/css"/>
-
-<!-- Custom CSS -->
-<link href="assets/dist/css/style.css" rel="stylesheet" type="text/css">
+    <jsp:include page="assets/css/bootstrap.min.css" />
+    <jsp:include page="assets/css/icons.css" />
+    <jsp:include page="assets/css/style.css" />
+</style>
+<script type="text/javascript">
+    <jsp:include page="assets/js/modernizr.min.js" />
+</script>

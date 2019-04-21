@@ -63,7 +63,7 @@ public class PersonnelDbUtil {
                 String domaine = myRs.getString("domaine");
                 String type = myRs.getString("type");
 
-                Personnel tempPersonnel = new Personnel(id,matricule,nom,dateNaissance,telephone,sexe,email,password,domaine,prenom,type);
+                Personnel tempPersonnel = new Personnel(id, matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, prenom, type);
 
                 personnels.add(tempPersonnel);
             }
@@ -73,6 +73,7 @@ public class PersonnelDbUtil {
         }
         return personnels;
     }
+
     public List<Personnel> getMedecins() throws Exception {
         List<Personnel> medecins = new ArrayList<>();
 
@@ -101,7 +102,7 @@ public class PersonnelDbUtil {
                 String domaine = myRs.getString("domaine");
                 String type = myRs.getString("type");
 
-                Personnel tempPersonnel = new Personnel(id,matricule,nom,dateNaissance,telephone,sexe,email,password,domaine,prenom,type);
+                Personnel tempPersonnel = new Personnel(id, matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, prenom, type);
 
                 medecins.add(tempPersonnel);
             }
@@ -140,7 +141,7 @@ public class PersonnelDbUtil {
                 String domaine = myRs.getString("domaine");
                 String type = myRs.getString("type");
 
-                Personnel tempPersonnel = new Personnel(id,matricule,nom,dateNaissance,telephone,sexe,email,password,domaine,prenom,type);
+                Personnel tempPersonnel = new Personnel(id, matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, prenom, type);
 
                 caissiers.add(tempPersonnel);
             }
@@ -216,12 +217,12 @@ public class PersonnelDbUtil {
             if (myRs.next()) {
                 String matricule = myRs.getString("matricule");
                 String nom = myRs.getString("nom");
-                String dateNaissance = myRs.getString("dateNaissance");
+                String dateNaissance = myRs.getString("date_naissance");
                 String telephone = myRs.getString("telephone");
                 String sexe = myRs.getString("sexe");
                 String email = myRs.getString("email");
                 String password = myRs.getString("password");
-                String domain = myRs.getString("domain");
+                String domain = myRs.getString("domaine");
                 String grade = myRs.getString("grade");
                 String type = myRs.getString("type");
 
@@ -236,6 +237,58 @@ public class PersonnelDbUtil {
             close(myConn, myStmt, myRs);
         }
     }
+
+    public Personnel getPersonnelByEmailAndPassword(String email, String password) throws Exception {
+
+        Personnel personnel = null;
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            // get connection to database
+            myConn = dataSource.getConnection();
+
+            // create sql to get selected patient
+            String sql = "select * from personnel where email=? AND password=?";
+
+            // create prepared statement
+            myStmt = myConn.prepareStatement(sql);
+
+            // set params
+            myStmt.setString(1, email);
+            myStmt.setString(2, password);
+
+            // execute statement
+            myRs = myStmt.executeQuery();
+
+            // retrieve data from result set row
+            if (myRs.next()) {
+                Integer id = myRs.getInt("id");
+                String matricule = myRs.getString("matricule");
+                String nom = myRs.getString("nom");
+                String prenom = myRs.getString("prenom");
+                String dateNaissance = myRs.getString("date_naissance");
+                String telephone = myRs.getString("telephone");
+                String sexe = myRs.getString("sexe");
+                String emailP = myRs.getString("email");
+                String passwordP = myRs.getString("password");
+                String domain = myRs.getString("domaine");
+                String type = myRs.getString("type");
+
+                personnel = new Personnel(id, matricule, nom, dateNaissance, telephone, sexe, emailP, passwordP, domain, prenom, type);
+            } else {
+                System.out.println("Email ou mot de passe incorrect.");
+            }
+
+            return personnel;
+        } finally {
+            // clean up JDBC objects
+            close(myConn, myStmt, myRs);
+        }
+    }
+
 
     private void close(Connection myConn, Statement myStmt, ResultSet myRs) {
         closeConnexion(myConn, myStmt, myRs);

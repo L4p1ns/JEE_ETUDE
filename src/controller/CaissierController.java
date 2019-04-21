@@ -1,7 +1,9 @@
 package controller;
 
 import dbutil.CaissierDbUtil;
+import dbutil.PersonnelDbUtil;
 import model.Caissier;
+import model.Personnel;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +19,7 @@ import java.util.List;
 @WebServlet("/Caissier")
 public class CaissierController extends HttpServlet {
     private CaissierDbUtil caissierDbUtil;
+    private PersonnelDbUtil personnelDbUtil;
 
     @Resource(name = "jdbc/ges_cons")
     private DataSource dataSource;
@@ -26,6 +29,7 @@ public class CaissierController extends HttpServlet {
         super.init();
         try {
             caissierDbUtil = new CaissierDbUtil(dataSource);
+            personnelDbUtil = new PersonnelDbUtil(dataSource);
         } catch (Exception e) {
             throw new ServletException(e);
         }
@@ -97,7 +101,7 @@ public class CaissierController extends HttpServlet {
     }
 
     private void listCaissier(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Caissier> caissiers = caissierDbUtil.getCaissiers();
+        List<Personnel> caissiers = personnelDbUtil.getCaissiers();
         request.setAttribute("LIST_CAISSIER", caissiers);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/list-caissiers.jsp");
