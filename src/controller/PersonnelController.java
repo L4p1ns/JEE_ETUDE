@@ -132,8 +132,12 @@ public class PersonnelController extends HttpServlet {
 
     private void list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<Personnel> personnels = personnelDbUtil.getPersonnels();
+        List<Personnel> caissiers = personnelDbUtil.getCaissiers();
+        List<Personnel> medecins = personnelDbUtil.getMedecins();
 
         request.setAttribute("PERSONNEL_LIST", personnels);
+        request.setAttribute("CAISSIER_LIST", caissiers);
+        request.setAttribute("MEDECIN_LIST", medecins);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/list-personnels.jsp");
         dispatcher.forward(request, response);

@@ -16,7 +16,9 @@
                     <th>Patient</th>
                     <th>Specialite</th>
                     <th>Caissier</th>
+                    <%if (session.getAttribute("medecin") != null) {%>
                     <th>Action</th>
+                    <%}%>
                 </tr>
                 </thead>
 
@@ -35,8 +37,8 @@
                     </c:url>
 
                     <c:url var="loadTicketId" value="Consultation">
-                        <c:param name="command" value="LOADFORSELECTBOX" />
-                        <c:param name="ticketId" value="${ticket.id}" />
+                        <c:param name="command" value="LOADFORSELECTBOX"/>
+                        <c:param name="ticketId" value="${ticket.id}"/>
                     </c:url>
 
                     <tbody>
@@ -49,14 +51,18 @@
                         <td> ${ticket.specialite} </td>
                         <td> ${ticket.personnel} </td>
 
+                        <%if (session.getAttribute("medecin") != null) {%>
                         <td>
+
                             <a href="${loadTicketId}">Consulter</a>
-<%--                            <a href="${tempLink}">Update</a>--%>
-<%--                            |--%>
-<%--                            <a href="${deleteLink}"--%>
-<%--                               onclick="if (!(confirm('Are you sure you want to delete this ticket?'))) return false">--%>
-<%--                                Delete</a>--%>
+
+                                <%--                            <a href="${tempLink}">Update</a>--%>
+                                <%--                            |--%>
+                                <%--                            <a href="${deleteLink}"--%>
+                                <%--                               onclick="if (!(confirm('Are you sure you want to delete this ticket?'))) return false">--%>
+                                <%--                                Delete</a>--%>
                         </td>
+                        <%}%>
                     </tr>
                     </tbody>
                 </c:forEach>
