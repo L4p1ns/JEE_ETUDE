@@ -47,6 +47,8 @@ public class LoginController extends HttpServlet {
                 case "LOGINPOST":
                     loginPost(request, response);
                     break;
+                case "LOGOUT":
+                    logout(request, response);
                 default:
                     login(request, response);
             }
@@ -57,23 +59,38 @@ public class LoginController extends HttpServlet {
         }
     }
 
+    private void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+
     private void loginPost(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         Personnel personnel = personnelDbUtil.getPersonnelByEmailAndPassword(email, password);
         if (personnel != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("PERSONNEL", personnel);
             if (personnel.getType().equals("MEDECIN")) {
-                HttpSession session = request.getSession();
-                session.setAttribute("medecin", personnel);
-                response.sendRedirect(request.getContextPath() + "/Consultation");
+                HttpSession sessionm = request.getSession();
+                sessionm.setAttribute("medecin", personnel);
+                this.getServletContext().getRequestDispatcher("/profilpersonnel.jsp").forward(request, response);
+//                response.sendRedirect(request.getContextPath() + "/Consultation");
             } else if (personnel.getType().equals("CAISSIER")) {
-                HttpSession session = request.getSession();
-                session.setAttribute("caissier", personnel);
-                response.sendRedirect(request.getContextPath() + "/Ticket");
-            } else System.out.println("Not Authorise.......");
+                HttpSession sessionc = request.getSession();
+                sessionc.setAttribute("caissier", personnel);
+                this.getServletContext().getRequestDispatcher("/profilpersonnel.jsp").forward(request, response);
+//                response.sendRedirect(request.getContextPath() + "/Ticket");
+            } else if (personnel.getType().equals("ADMIN")) {
+                HttpSession sessiona = request.getSession();
+                sessiona.setAttribute("admin",personnel);
+                response.sendRedirect(request.getContextPath()+"/Personnel");
+            } else {
+                System.out.println("Not Authorise.......");
+            }
         } else response.sendRedirect(request.getContextPath() + "/Login");
-
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {

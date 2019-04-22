@@ -78,8 +78,6 @@ public class PatientController extends HttpServlet {
     }
 
     private void updatePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // read patient info from form data
-        // read student info from form data
         int id = Integer.parseInt(request.getParameter("patientId"));
         String matricule = request.getParameter("matricule");
         String nom = request.getParameter("nom");

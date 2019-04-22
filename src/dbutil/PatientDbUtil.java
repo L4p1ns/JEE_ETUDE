@@ -92,7 +92,7 @@ public class PatientDbUtil {
         }
     }
 
-    public Patient getPatient(String thePatientId) throws Exception {
+    public Patient getPatient(String matricule) throws Exception {
 
         Patient patient = null;
 
@@ -102,27 +102,25 @@ public class PatientDbUtil {
         int patientId;
 
         try {
-            // Convert id to int
-            patientId = Integer.parseInt(thePatientId);
 
             // get connection to database
             myConn = dataSource.getConnection();
 
             // create sql to get selected patient
-            String sql = "select * from patient where id=?";
+            String sql = "select * from patient where matricule=?";
 
             // create prepared statement
             myStmt = myConn.prepareStatement(sql);
 
             // set params
-            myStmt.setInt(1, patientId);
+            myStmt.setString(1, matricule);
 
             // execute statement
             myRs = myStmt.executeQuery();
 
             // retrieve data from result set row
             if (myRs.next()) {
-                String matricule = myRs.getString("matricule");
+                String matriculeP = myRs.getString("matricule");
                 String nom = myRs.getString("nom");
                 String dateNaissance = myRs.getString("dateNaissance");
                 String telephone = myRs.getString("telephone");
@@ -130,9 +128,9 @@ public class PatientDbUtil {
                 String groupeSanguin = myRs.getString("groupeSanguin");
 
                 // use the patient during construction
-                patient = new Patient(patientId, matricule, nom, dateNaissance, telephone, sexe, groupeSanguin);
+                patient = new Patient(matriculeP,nom,dateNaissance,telephone,sexe,groupeSanguin);
             } else {
-                throw new Exception("Could not find patient matricule: " + patientId);
+                System.out.println("Patient "+matricule +" n existe pas dans la base de donnee.");
             }
 
             return patient;
@@ -154,20 +152,19 @@ public class PatientDbUtil {
 
             // create SQL update statement
             String sql = "update patient "
-                    + "set matricule=?, nom=?, dateNaissance=?, telephone=?, sexe=?, groupeSanguin=? "
-                    + "where id=?";
+                    + "set nom=?, dateNaissance=?, telephone=?, sexe=?, groupeSanguin=? "
+                    + "where matricule=?";
 
             // prepare statement
             myStmt = myConn.prepareStatement(sql);
 
             // set params
-            myStmt.setString(1, thePatient.getMatricule());
-            myStmt.setString(2, thePatient.getNom());
-            myStmt.setString(3, thePatient.getDateNaissance());
-            myStmt.setString(4, thePatient.getTel());
-            myStmt.setString(5, thePatient.getSexe());
-            myStmt.setString(6, thePatient.getGroupeSanguin());
-            myStmt.setInt(7, thePatient.getId());
+            myStmt.setString(1, thePatient.getNom());
+            myStmt.setString(2, thePatient.getDateNaissance());
+            myStmt.setString(3, thePatient.getTel());
+            myStmt.setString(4, thePatient.getSexe());
+            myStmt.setString(5, thePatient.getGroupeSanguin());
+            myStmt.setString(6, thePatient.getMatricule());
 
             // execute SQL statement
             myStmt.execute();
@@ -185,19 +182,19 @@ public class PatientDbUtil {
 
         try {
             // convert patient id to int
-            int idPatient = Integer.parseInt(patientId);
+//            int idPatient = Integer.parseInt(patientId);
 
             // get connection to database
             myConn = dataSource.getConnection();
 
             // create sql to delete patient
-            String sql = "delete from patient where id=?";
+            String sql = "delete from patient where matricule=?";
 
             // prepare statement
             myStmt = myConn.prepareStatement(sql);
 
             // set params
-            myStmt.setInt(1, idPatient);
+            myStmt.setString(1, patientId);
 
             // execute sql statement
             myStmt.execute();

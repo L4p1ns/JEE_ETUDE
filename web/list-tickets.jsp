@@ -2,18 +2,6 @@
 <jsp:include page="admintoHeader.jsp"/>
 <br>
 
-<div>
-    <c:url var="linkAddForm" value="Ticket">
-        <c:param name="command" value="LOADFORSELECTBOX"/>
-        <c:param name="LIST_PERSONNELS" value="${LIST_PERSONNELS}"/>
-        <c:param name="LIST_PATIENTS" value="${LIST_PATIENTS}"/>
-        <c:param name="LIST_SPECIALITES" value="${LIST_SPECIALITES}"/>
-    </c:url>
-    <a href="${linkAddForm}" class="btn btn-success btn-trans waves-effect w-md waves-success m-b-5">
-        Add Ticket
-    </a>
-
-</div>
 
 <div class="row">
     <div class="col-12">
@@ -46,6 +34,11 @@
                         <c:param name="patientId" value="${ticket.id}"/>
                     </c:url>
 
+                    <c:url var="loadTicketId" value="Consultation">
+                        <c:param name="command" value="LOADFORSELECTBOX" />
+                        <c:param name="ticketId" value="${ticket.id}" />
+                    </c:url>
+
                     <tbody>
 
                     <tr>
@@ -57,11 +50,12 @@
                         <td> ${ticket.personnel} </td>
 
                         <td>
-                            <a href="${tempLink}">Update</a>
-                            |
-                            <a href="${deleteLink}"
-                               onclick="if (!(confirm('Are you sure you want to delete this ticket?'))) return false">
-                                Delete</a>
+                            <a href="${loadTicketId}">Consulter</a>
+<%--                            <a href="${tempLink}">Update</a>--%>
+<%--                            |--%>
+<%--                            <a href="${deleteLink}"--%>
+<%--                               onclick="if (!(confirm('Are you sure you want to delete this ticket?'))) return false">--%>
+<%--                                Delete</a>--%>
                         </td>
                     </tr>
                     </tbody>

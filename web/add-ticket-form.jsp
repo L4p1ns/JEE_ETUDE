@@ -1,91 +1,40 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
+<%@ page import="model.Personnel" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="admintoHeader.jsp"/>
+<br>
 
-<head>
-    <title>Add Ticket</title>
 
-    <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link type="text/css" rel="stylesheet" href="css/add-patient-style.css">
-</head>
-
-<body>
-<div id="wrapper">
-    <div id="header">
-        <h2>GesCons</h2>
-    </div>
-</div>
-
-<div id="container">
-    <h3>Add Ticket</h3>
-
-    <form action="Ticket" method="GET">
-
-        <input type="hidden" name="command" value="ADD"/>
-
-        <table>
-            <tbody>
-            <tr>
-                <td><label>Montant:</label></td>
-                <td><input type="number" name="montant"/></td>
-            </tr>
-
-            <tr>
-                <td><label>Personnel:</label></td>
-                <td>
-                    <select name="id_personnel"
-                            style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
-                        <c:forEach var="item" items="${LIST_PERSONNELS}">
-                            <option value="${item.id}">
-                                <c:out value="${item.nom}"/>
-                            </option>
-                        </c:forEach>
-                    </select>
-                </td>
-            </tr>
-
-            <tr>
-                <td><label>Specialite:</label></td>
-                <td>
-                    <select name="id_specialite"
-                            style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
+<div class="row">
+    <div class="col-12">
+        <h4 class="m-t-0 header-title">Ticket</h4>
+        <div class="card-box">
+            <form action="Ticket" method="GET">
+                <input type="hidden" name="command" value="ADD"/>
+                <input type="hidden" name="id_patient" value="${PATIENT.matricule}">
+                <input type="hidden" name="id_personnel" value="${CAISSIER.id}">
+                <div class="form-group">
+                    <label for="id_specialite">Specilate</label>
+                    <select name="id_specialite" id="id_specialite" class="form-control">
                         <c:forEach var="item" items="${LIST_SPECIALITES}">
                             <option value="${item.id}">
                                 <c:out value="${item.nom}"/>
                             </option>
                         </c:forEach>
                     </select>
-                </td>
-            </tr>
+                </div>
 
-            <tr>
-                <td><label>Patient:</label></td>
-                <td>
-                    <select name="id_patient" style="width: 250px; border: 1px solid #666;border-radius: 5px; padding: 4px;font-size: 16px">
-                        <c:forEach var="item" items="${LIST_PATIENTS}">
-                            <option value="${item.matricule}">
-                                <c:out value="${item.nom}"/>
-                            </option>
-                        </c:forEach>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><label></label></td>
-                <td><input type="submit" value="Save" class="save"/></td>
-            </tr>
-
-            </tbody>
-        </table>
-    </form>
-
-    <div style="clear: both;"></div>
-
-    <p>
-        <a href="Ticket">Back to List</a>
-    </p>
+                <div class="form-group text-right m-b-0">
+                    <button class="btn btn-primary waves-effect waves-light" type="submit">
+                        Valider
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-</body>
-
-</html>
-
+<jsp:include page="admintoFooter.jsp"/>
+<%--<script type="text/javascript">--%>
+<%--    $(document).ready(function() {--%>
+<%--        $('form').parsley();--%>
+<%--    });--%>
+<%--</script>--%>

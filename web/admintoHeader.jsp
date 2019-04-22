@@ -79,8 +79,10 @@
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <i class="ti-lock m-r-5"></i> Lock screen
                             </a>
-
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <c:url var="logout" value="Login">
+                                <c:param name="command" value="LOGOUT"/>
+                            </c:url>
+                            <a href="${logout}" class="dropdown-item notify-item">
                                 <i class="ti-power-off m-r-5"></i> Logout
                             </a>
                         </div>
@@ -94,35 +96,29 @@
     <div class="navbar-custom">
         <div class="container-fluid">
             <div id="navigation">
-                <% String medecin = (String) session.getAttribute("medecin");%>
-                <% String caissier = (String) session.getAttribute("caissier");%>
-
                 <ul class="navigation-menu">
-                    <% if (medecin != null) { %>
-                    <li class="has-submenu">
-                        <a href="Medecin"><i class="mdi mdi-view-agenda"></i> <span> Medecin </span> </a>
-                    </li>
+                    <% if (session.getAttribute("medecin") != null) { %>
                     <li class="has-submenu">
                         <a href="Consultation"><i class="mdi mdi-view-column"></i> <span> Consultation </span> </a>
                     </li>
                     <li class="has-submenu">
-                        <a href="Ticket"><i class="mdi mdi-view-column"></i> <span> Ticket </span> </a>
+                        <a href="Ticket"><i class="mdi mdi-view-column"></i> <span> Patient </span> </a>
                     </li>
                     <% } %>
-                    <% if (caissier != null) { %>
+                    <% if (session.getAttribute("caissier") != null) { %>
                     <li class="has-submenu">
                         <a href="PatientController"><i class="mdi mdi-view-dashboard"></i> <span> Patient </span> </a>
                     </li>
-                    <li class="has-submenu">
-                        <a href="Ticket"><i class="mdi mdi-view-column"></i> <span> Ticket </span> </a>
-                    </li>
                     <% } %>
+                    <%-- Only Admin--%>
+                    <% if (session.getAttribute("admin") != null) { %>
+                    <li class="has-submenu">
+                        <a href="Personnel"><i class="mdi mdi-view-agenda"></i> <span> Personnel </span> </a>
+                    </li>
                     <li class="has-submenu">
                         <a href="Specialite"><i class="mdi mdi-view-list"></i> <span> Specialite </span> </a>
                     </li>
-                    <li class="has-submenu">
-                        <a href="Caissier"><i class="mdi mdi-view-split-horizontal"></i> <span> Caissier </span> </a>
-                    </li>
+                    <% } %>
                 </ul>
             </div>
         </div>

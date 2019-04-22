@@ -41,6 +41,11 @@
                         <c:param name="command" value="DELETE"/>
                         <c:param name="patientId" value="${tempPatient.matricule}"/>
                     </c:url>
+                    <%-- Send id patient to Caissier--%>
+                    <c:url var="loadPatienId" value="Ticket">
+                        <c:param name="command" value="LOADFORSELECTBOX" />
+                        <c:param name="patienId" value="${tempPatient.matricule}" />
+                    </c:url>
                     <tbody>
 
                     <tr>
@@ -51,11 +56,12 @@
                         <td> ${tempPatient.sexe} </td>
                         <td> ${tempPatient.groupeSanguin} </td>
                         <td>
-                            <a href="${tempLink}">Update</a>
-                            |
-                            <a href="${deleteLink}"
-                               onclick="if (!(confirm('Are you sure you want to delete this patient?'))) return false">
-                                Delete</a>
+                            <a href="${loadPatienId}">Ticket</a>
+<%--                            <a href="${tempLink}">Update</a>--%>
+
+<%--                            <a href="${deleteLink}"--%>
+<%--                               onclick="if (!(confirm('Are you sure you want to delete this patient?'))) return false">--%>
+<%--                                Delete</a>--%>
                         </td>
                     </tr>
                     </tbody>

@@ -4,10 +4,7 @@ import dbutil.PatientDbUtil;
 import dbutil.PersonnelDbUtil;
 import dbutil.SpecialiteDbUtil;
 import dbutil.TicketDbUtil;
-import model.Patient;
-import model.Personnel;
-import model.Specialite;
-import model.Ticket;
+import model.*;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -16,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Calendar;
@@ -90,13 +88,15 @@ public class TicketController extends HttpServlet {
     }
 
     private void charger(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Patient> patientss = patientDbUtil.getPatients();
+        Patient patient = patientDbUtil.getPatient(request.getParameter("patienId"));
         List<Specialite> specialites = specialiteDbUtil.getSpecialites();
-        List<Personnel> personnels = personnelDbUtil.getPersonnels();
-        patientss.forEach(p -> System.out.println(p.getMatricule()+p.getGroupeSanguin()+p.getNom()));
-        request.setAttribute("LIST_PATIENTS", patientss);
+        HttpSession session = request.getSession();
+
+        Personnel personnel = (Personnel) session.getAttribute("caissier");
+
+        request.setAttribute("PATIENT", patient);
         request.setAttribute("LIST_SPECIALITES", specialites);
-        request.setAttribute("LIST_PERSONNELS", personnels);
+        request.setAttribute("CAISSIER", personnel);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/add-ticket-form.jsp");
         dispatcher.forward(request, response);

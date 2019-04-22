@@ -152,6 +152,73 @@ public class PersonnelDbUtil {
         return caissiers;
     }
 
+    public void deletePersonnel(String personnelId) throws Exception {
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+
+        try {
+            // convert patient id to int
+            int idPersonnel = Integer.parseInt(personnelId);
+
+            // get connection to database
+            myConn = dataSource.getConnection();
+
+            // create sql to delete personnel
+            String sql = "delete from personnel where id=?";
+
+            // prepare statement
+            myStmt = myConn.prepareStatement(sql);
+
+            // set params
+            myStmt.setInt(1, idPersonnel);
+
+            // execute sql statement
+            myStmt.execute();
+        } finally {
+            // clean up JDBC code
+            close(myConn, myStmt, null);
+        }
+    }
+
+    public void updatePersonnel(Personnel thePersonnel) throws Exception {
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+
+        try {
+            // get db connection
+            myConn = dataSource.getConnection();
+
+            // create SQL update statement
+            String sql = "update personnel "
+                    + "set nom=?, date_naissance=?, telephone=?, sexe=?, email=?, password=?, domaine=?, type=?, prenom=?, matricule=? "
+                    + "where id=?";
+
+            // prepare statement
+            myStmt = myConn.prepareStatement(sql);
+
+            // set params
+            myStmt.setString(1, thePersonnel.getNom());
+            myStmt.setString(2, thePersonnel.getDateNaissance());
+            myStmt.setString(3, thePersonnel.getTel());
+            myStmt.setString(4, thePersonnel.getSexe());
+            myStmt.setString(5, thePersonnel.getEmail());
+            myStmt.setString(6, thePersonnel.getPassword());
+            myStmt.setString(7, thePersonnel.getDomaine());
+            myStmt.setString(8, thePersonnel.getType());
+            myStmt.setString(9, thePersonnel.getPrenom());
+            myStmt.setString(10, thePersonnel.getMatricule());
+            myStmt.setInt(11, thePersonnel.getId());
+
+            // execute SQL statement
+            myStmt.execute();
+        } finally {
+            // clean up JDBC objects
+            close(myConn, myStmt, null);
+        }
+    }
+
 
     public void addPersonnel(Personnel personnel) throws Exception {
 
@@ -188,8 +255,7 @@ public class PersonnelDbUtil {
         }
     }
 
-
-    public Personnel getPersonnel(String matriculeId) throws Exception {
+    public Personnel getPersonnel(String personnelId) throws Exception {
 
         Personnel personnel = null;
 
@@ -198,37 +264,40 @@ public class PersonnelDbUtil {
         ResultSet myRs = null;
 
         try {
+            int idPersonnel = Integer.parseInt(personnelId);
+
             // get connection to database
             myConn = dataSource.getConnection();
 
             // create sql to get selected patient
-            String sql = "select * from personnel where matricule=?";
+            String sql = "select nom, date_naissance, telephone, sexe, email, password, domaine, type, prenom, matricule, id from personnel where id=?";
 
             // create prepared statement
             myStmt = myConn.prepareStatement(sql);
 
             // set params
-            myStmt.setString(1, matriculeId);
+            myStmt.setInt(1, idPersonnel);
 
             // execute statement
             myRs = myStmt.executeQuery();
 
             // retrieve data from result set row
             if (myRs.next()) {
+                Integer id = myRs.getInt("id");
                 String matricule = myRs.getString("matricule");
                 String nom = myRs.getString("nom");
+                String prenom = myRs.getString("prenom");
                 String dateNaissance = myRs.getString("date_naissance");
                 String telephone = myRs.getString("telephone");
                 String sexe = myRs.getString("sexe");
                 String email = myRs.getString("email");
                 String password = myRs.getString("password");
                 String domain = myRs.getString("domaine");
-                String grade = myRs.getString("grade");
                 String type = myRs.getString("type");
 
-                personnel = new Personnel(null, matricule, nom, dateNaissance, telephone, sexe, email, password, domain, grade, type);
+                personnel = new Personnel(id, matricule, nom, dateNaissance, telephone, sexe, email, password, domain, prenom, type);
             } else {
-                throw new Exception("Could not find personnel matricule: " + matriculeId);
+                throw new Exception("Could not find personnel id: " + personnelId);
             }
 
             return personnel;
@@ -288,7 +357,6 @@ public class PersonnelDbUtil {
             close(myConn, myStmt, myRs);
         }
     }
-
 
     private void close(Connection myConn, Statement myStmt, ResultSet myRs) {
         closeConnexion(myConn, myStmt, myRs);

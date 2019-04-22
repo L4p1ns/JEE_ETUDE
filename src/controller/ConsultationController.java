@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Calendar;
@@ -94,11 +95,12 @@ public class ConsultationController extends HttpServlet {
     }
 
     private void charger(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Personnel> medecins = personnelDbUtil.getMedecins();
-        List<Ticket> tickets = ticketDbUtil.getTickets();
+        Ticket ticket = ticketDbUtil.getTicket(request.getParameter("ticketId"));
+        HttpSession session = request.getSession();
+        Personnel medecin = (Personnel) session.getAttribute("medecin");
 
-        request.setAttribute("LIST_MEDECINS", medecins);
-        request.setAttribute("LIST_TICKETS", tickets);
+        request.setAttribute("MEDECIN", medecin);
+        request.setAttribute("TICKET", ticket);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/add-consultation-form.jsp");
         dispatcher.forward(request, response);

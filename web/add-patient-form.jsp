@@ -1,72 +1,63 @@
-<!DOCTYPE html>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="admintoHeader.jsp"/>
+<br>
+<div class="row">
+    <div class="col-8">
+        <h4 class="m-t-0 header-title">Patient</h4>
+        <div class="card-box">
+            <form action="PatientController" method="GET">
+                <input type="hidden" name="command" value="ADD"/>
 
-<head>
-    <title>Add Patient</title>
+                <div class="form-group">
+                    <label for="matricule">Matricule</label>
+                    <input name="matricule" id="matricule" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input name="nom" id="nom" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="sexe">Sexe</label>
+                    <select name="sexe" id="sexe" class="form-control">
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dateNaissance">Date de Naissance</label>
+                    <input name="dateNaissance" id="dateNaissance" type="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="tel">Telephone</label>
+                    <input name="tel" id="tel" type="number" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="groupeSanguin">Groupe Sanguin</label>
+                    <select name="groupeSanguin" id="groupeSanguin" type="groupeSanguin" class="form-control" required>
+                        <option value="Oplus">Oplus</option>
+                        <option value="Onegatif">Onegatif</option>
+                        <option value="ABnegatif">ABnegatif</option>
+                        <option value="ABplus">ABplus</option>
+                        <option value="Aplus">Aplus</option>
+                        <option value="Anegatif">Anegatif</option>
+                        <option value="Bplus">Bplus</option>
+                        <option value="Bnegatif">Bnegatif</option>
+                    </select>
+                </div>
 
-    <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link type="text/css" rel="stylesheet" href="css/add-patient-style.css">
-</head>
 
-<body>
-<div id="wrapper">
-    <div id="header">
-        <h2>GesCons</h2>
+                <div class="form-group text-right m-b-0">
+                    <button class="btn btn-primary waves-effect waves-light" type="submit">
+                        Valider
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
-<div id="container">
-    <h3>Add Patient</h3>
-
-    <form action="PatientController" method="GET">
-
-        <input type="hidden" name="command" value="ADD"/>
-
-        <table>
-            <tbody>
-            <tr>
-                <td><label>Matricule:</label></td>
-                <td><input type="text" name="matricule"/></td>
-            </tr>
-
-            <tr>
-                <td><label>Nom:</label></td>
-                <td><input type="text" name="nom"/></td>
-            </tr>
-            <tr>
-                <td><label>Sexe:</label></td>
-                <td><input type="text" name="sexe"/></td>
-            </tr>
-
-            <tr>
-                <td><label>Date De Naissance:</label></td>
-                <td><input type="date" name="dateNaissance"/></td>
-            </tr>
-
-            <tr>
-                <td><label>Telephone:</label></td>
-                <td><input type="number" name="tel"/></td>
-            </tr>
-            <tr>
-                <td><label>Groupe Sanguin:</label></td>
-                <td><input type="text" name="groupeSanguin"/></td>
-            </tr>
-            <tr>
-                <td><label></label></td>
-                <td><input type="submit" value="Save" class="save"/></td>
-            </tr>
-
-            </tbody>
-        </table>
-    </form>
-
-    <div style="clear: both;"></div>
-
-    <p>
-        <a href="PatientController">Back to List</a>
-    </p>
-</div>
-</body>
-
-</html>
-
+<jsp:include page="admintoFooter.jsp"/>
+<%--<script type="text/javascript">--%>
+<%--    $(document).ready(function() {--%>
+<%--        $('form').parsley();--%>
+<%--    });--%>
+<%--</script>--%>

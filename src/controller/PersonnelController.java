@@ -1,6 +1,7 @@
 package controller;
 
 import dbutil.PersonnelDbUtil;
+import model.Patient;
 import model.Personnel;
 
 import javax.annotation.Resource;
@@ -68,29 +69,60 @@ public class PersonnelController extends HttpServlet {
         }
     }
 
-    private void charge(HttpServletRequest request, HttpServletResponse response) {
+    private void charge(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        String idPersonnel = request.getParameter("personnelId");
 
+        // get personnel from database (db util)
+        Personnel personnel = personnelDbUtil.getPersonnel(idPersonnel);
+
+        // place patient in the request attribute
+        request.setAttribute("THE_PERSONNEL", personnel);
+
+        // send to jsp page: update-patient-form.jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/update-personnel-form.jsp");
+        dispatcher.forward(request, response);
     }
 
-    private void supr(HttpServletRequest request, HttpServletResponse response) {
+    private void supr(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String personnelId = request.getParameter("personnelId");
+        // delete personnel from database
+        personnelDbUtil.deletePersonnel(personnelId);
+
+        // send them back to "list personnel"
+        list(request, response);
     }
 
-    private void modif(HttpServletRequest request, HttpServletResponse response) {
+    private void modif(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int id = Integer.parseInt(request.getParameter("personnelId"));
+        String matricule = request.getParameter("matricule");
+        String nom = request.getParameter("nom");
+        String date_naissance = request.getParameter("dateNaissance");
+        String telephone = request.getParameter("tel");
+        String sexe = request.getParameter("sexe");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String domaine = request.getParameter("domaine");
+        String type = request.getParameter("type");
+        String prenom = request.getParameter("prenom");
+
+        Personnel personnel = new Personnel(id, matricule, nom, date_naissance, telephone, sexe, email, password, domaine, prenom, type);
+        personnelDbUtil.updatePersonnel(personnel);
+        list(request, response);
     }
 
     private void ajout(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String matricule = request.getParameter("matricule");
         String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
         String dateNaissance = request.getParameter("dateNaissance");
         String telephone = request.getParameter("tel");
         String sexe = request.getParameter("sexe");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String domaine = request.getParameter("domaine");
-        String grade = request.getParameter("grade");
         String type = request.getParameter("type");
 
-        Personnel personnel = new Personnel(null,matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, grade, type);
+        Personnel personnel = new Personnel(null, matricule, nom, dateNaissance, telephone, sexe, email, password, domaine, prenom, type);
 
         personnelDbUtil.addPersonnel(personnel);
 

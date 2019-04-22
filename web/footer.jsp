@@ -13,7 +13,7 @@
     <jsp:include page="assets/plugins/datatables/vfs_fonts.js"/>
     <jsp:include page="assets/plugins/datatables/buttons.html5.min.js"/>
     <jsp:include page="assets/plugins/datatables/buttons.print.min.js"/>
-<%--    Key Tables--%>
+    <%--    Key Tables--%>
     <jsp:include page="assets/plugins/datatables/dataTables.keyTable.min.js"/>
 
     <jsp:include page="assets/plugins/datatables/dataTables.responsive.min.js"/>
@@ -22,6 +22,8 @@
 
     <jsp:include page="assets/js/waves.js"/>
     <jsp:include page="assets/js/jquery.slimscroll.js"/>
+    <%--    Validation --%>
+    <jsp:include page="assets/plugins/parsleyjs/dist/parsley.min.js" />
     <jsp:include page="assets/js/jquery.core.js"/>
     <jsp:include page="assets/js/jquery.app.js"/>
 </script>

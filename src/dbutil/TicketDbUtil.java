@@ -79,4 +79,47 @@ public class TicketDbUtil {
     private void close(Connection myConn, Statement myStmt, ResultSet myRs) {
         PersonnelDbUtil.closeConnexion(myConn, myStmt, myRs);
     }
+
+    public Ticket getTicket(String ticketId) throws Exception {
+        Ticket ticket = null;
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        int idTicket;
+
+        try {
+            idTicket = Integer.parseInt(ticketId);
+            // get connection to database
+            myConn = dataSource.getConnection();
+
+            // create sql to get selected patient
+            String sql = "select * from ticket where id=?";
+            // create prepared statement
+            myStmt = myConn.prepareStatement(sql);
+
+            // set params
+            myStmt.setInt(1, idTicket);
+
+            // execute statement
+            myRs = myStmt.executeQuery();
+            // retrieve data from result set row
+            if (myRs.next()) {
+                Integer id = myRs.getInt("id");
+                Date datePrise = Date.valueOf(myRs.getString("datePrise"));
+                Integer id_personnel = Integer.valueOf(myRs.getString("id_personnel"));
+                Integer id_specialite = Integer.valueOf(myRs.getString("id_specialite"));
+                String id_patient = myRs.getString("id_patient");
+
+                // use the patient during construction
+                ticket = new Ticket(id, datePrise, id_specialite, id_patient, id_personnel);
+            } else {
+                System.out.println("Ticket: " + idTicket + " n existe pas dans la base de donnee.");
+            }
+            return ticket;
+        } finally {
+            // clean up JDBC objects
+            close(myConn, myStmt, myRs);
+        }
+    }
 }

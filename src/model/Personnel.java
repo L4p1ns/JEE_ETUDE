@@ -6,6 +6,7 @@ public class Personnel extends Personne {
     private String domaine;
     private String prenom;
     private String type;
+
     public Personnel(Integer id, String matricule, String nom, String dateNaissance2, String tel, String sexe, String email, String password, String domaine, String prenom, String type) {
         super(id, matricule, nom, dateNaissance2, tel, sexe);
         this.email = email;

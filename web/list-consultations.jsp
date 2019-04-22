@@ -8,9 +8,9 @@
         <c:param name="LIST_MEDECINS" value="${LIST_MEDECINS}"/>
         <c:param name="LIST_TICKETS" value="${LIST_TICKETS}"/>
     </c:url>
-    <a href="${linkAddForm}" class="btn btn-success btn-trans waves-effect w-md waves-success m-b-5">
-        Add Consultation
-    </a>
+<%--    <a href="${linkAddForm}" class="btn btn-success btn-trans waves-effect w-md waves-success m-b-5">--%>
+<%--        Add Consultation--%>
+<%--    </a>--%>
 </div>
 
 <div class="row">
