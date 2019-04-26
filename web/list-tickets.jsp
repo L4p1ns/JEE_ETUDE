@@ -13,9 +13,10 @@
                 <tr>
                     <th>Id</th>
                     <th>Date Prise</th>
-                    <th>Patient</th>
                     <th>Specialite</th>
-                    <th>Caissier</th>
+                    <th>Tarif</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
                     <%if (session.getAttribute("medecin") != null) {%>
                     <th>Action</th>
                     <%}%>
@@ -41,16 +42,28 @@
                         <c:param name="ticketId" value="${ticket.id}"/>
                     </c:url>
 
+                    <c:url var="genererTicket" value="Ticket">
+                        <c:param name="command" value="GENERERTICKET"/>
+                        <c:param name="id" value="${ticket.id}"/>
+                        <c:param name="date" value="${ticket.datePrise}"/>
+                        <c:param name="type" value="${ticket.typeService}"/>
+                        <c:param name="tarif" value="${ticket.tarif}"/>
+                        <c:param name="nomP" value="${ticket.nom}"/>
+                        <c:param name="prenomP" value="${ticket.prenom}"/>
+                    </c:url>
                     <tbody>
 
                     <tr>
                         <td> ${ticket.id} </td>
-                            <%--<td> ${ticket.date_prise} </td>--%>
                         <td> ${ticket.datePrise} </td>
-                        <td> ${ticket.patient} </td>
-                        <td> ${ticket.specialite} </td>
-                        <td> ${ticket.personnel} </td>
+                        <td> ${ticket.typeService} </td>
+                        <td> ${ticket.tarif} </td>
+                        <td> ${ticket.nom} </td>
+                        <td> ${ticket.prenom} </td>
 
+                        <td>
+                            <a href="${genererTicket}">Recu</a>
+                        </td>
                         <%if (session.getAttribute("medecin") != null) {%>
                         <td>
 

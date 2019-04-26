@@ -24,7 +24,13 @@ public class TicketDbUtil {
         try {
             myConn = dataSource.getConnection();
 
-            String sql = "select * from ticket";
+            //select ticket.id, ticket.datePrise, ticket.id_personnel, ticket.id_specialite, ticket.id_patient, s.id as idSpecialite, s.nom, s.tarif, p.nom, p.telephone, p.email,  p.type, p.prenom from  ticket join specialite s on ticket.id_specialite = s.id join personnel p on ticket.id_personnel = p.id;
+            String sql = "select ticket.id, ticket.datePrise, s.nom as \"specialite\", s.tarif, p.nom as \"Nom_Personne\", p.prenom\n" +
+                    "from ticket\n" +
+                    "         join specialite s on ticket.id_specialite = s.id\n" +
+                    "         join personnel p on ticket.id_personnel = p.id\n" +
+                    "group by ticket.id, ticket.datePrise, s.nom, s.tarif, p.nom, p.prenom\n";
+//            String sql = "select * from ticket";
 
             myStmt = myConn.createStatement();
 
@@ -32,11 +38,13 @@ public class TicketDbUtil {
             while (myRs.next()) {
                 int id = myRs.getInt("id");
                 Date date_prise = myRs.getDate("datePrise");
-                Integer id_specialite = myRs.getInt("id_specialite");
-                String id_patient = myRs.getString("id_patient");
-                Integer personnel = myRs.getInt("id_personnel");
+                String specialite = myRs.getString("specialite");
+                Integer tarif = myRs.getInt("tarif");
+                String nom = myRs.getString("Nom_Personne");
+                String prenom = myRs.getString("prenom");
 
-                Ticket ticket = new Ticket(id, date_prise, id_specialite, id_patient, personnel);
+                Ticket ticket = new Ticket(id, date_prise, specialite, tarif, nom, prenom);
+//                Ticket ticket = new Ticket(id, date_prise, id_specialite, id_patient, personnel);
                 tickets.add(ticket);
             }
         } finally {

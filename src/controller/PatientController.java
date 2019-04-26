@@ -58,7 +58,6 @@ public class PatientController extends HttpServlet {
                 case "UPDATE":
                     updatePatient(request, response);
                     break;
-
                 case "DELETE":
                     deletePatient(request, response);
                     break;

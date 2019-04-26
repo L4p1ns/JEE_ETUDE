@@ -4,7 +4,11 @@ import dbutil.PatientDbUtil;
 import dbutil.PersonnelDbUtil;
 import dbutil.SpecialiteDbUtil;
 import dbutil.TicketDbUtil;
-import model.*;
+import itextpdf.GeneratePdf;
+import model.Patient;
+import model.Personnel;
+import model.Specialite;
+import model.Ticket;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -16,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
@@ -61,6 +66,10 @@ public class TicketController extends HttpServlet {
                     ajoutTicket(request, response);
                     break;
 
+                case "GENERERTICKET":
+                    genererTicket(request, response);
+                    break;
+
                 case "LOADFORSELECTBOX":
                     charger(request, response);
                     break;
@@ -85,6 +94,21 @@ public class TicketController extends HttpServlet {
             System.out.println(e.getMessage());
             throw new ServletException(e);
         }
+    }
+
+    private void genererTicket(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Date date = Date.valueOf(request.getParameter("date"));
+        String type = request.getParameter("type");
+        String nom = request.getParameter("nomP");
+        String prenom = request.getParameter("prenomP");
+
+        Integer tarif = Integer.valueOf(request.getParameter("tarif"));
+//        System.out.println(id + type + nom + prenom + tarif + date);
+        Ticket ticket = new Ticket(id, date, type, tarif, nom, prenom);
+        GeneratePdf.genererPdf(ticket);
+
+        listTicket(request, response);
     }
 
     private void charger(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -125,7 +149,10 @@ public class TicketController extends HttpServlet {
     private void listTicket(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<Ticket> tickets = ticketDbUtil.getTickets();
         request.setAttribute("LIST_TICKETS", tickets);
-
+//        tickets.forEach(t -> {
+//            GeneratePdf.genererPdf(t);
+//            System.out.println("Ticket generer.");
+//        });
         RequestDispatcher dispatcher = request.getRequestDispatcher("/list-tickets.jsp");
         dispatcher.forward(request, response);
     }
